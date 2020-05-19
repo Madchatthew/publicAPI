@@ -1,0 +1,29 @@
+<h1>Favorites</h1>
+
+<% favorites.forEach(function(favorite) { %>
+
+   <div>
+       <h2><%= favorite.title %></h2> 
+    </div>
+
+    <div>
+        <%= favorite.created %> 
+    </div>
+
+    <div>
+        <%= favorite.category %> 
+    </div>
+
+    <div>
+        <%= favorite.link %> 
+    </div>
+
+    <div>
+        <%= favorite.description %> 
+    </div>
+
+    <div>
+        <%= favorite.comments %> 
+    </div>
+
+<% }) %>

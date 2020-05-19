@@ -1,9 +1,13 @@
 <h1>Here are your results</h1>
 
 <% data['entries'].forEach(function(list) { %>
-    <li>
-        <p><%= list['API'] %> | Category: <%= list['Category'] %></p>
-        <p>Description: <%= list['Description'] %></p> 
-        <p>Link: <a href="<%= list['Link'] %>" target="_blank"><%= list['Link'] %></a> </p>
-    </li> 
+    <div>
+        <ul>
+            <li>
+                <p><%= list['API'] %> | Category: <%= list['Category'] %></p>
+                <p>Description: <%= list['Description'] %></p> 
+                <p>Link: <a href="<%= list['Link'] %>" target="_blank"><%= list['Link'] %></a> </p>
+            </li>
+        </ul>
+    </div> 
 <% }) %> 
