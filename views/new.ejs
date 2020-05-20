@@ -1,42 +1,40 @@
 <%- include("partials/header") %>
 
-<h1>This is the new.ejs file.</h1>
+<div class="ui main text container segment">
+    <div class="ui huge header">Add New Favorite</div>
 
-<!-- <div class="ui main text container segment">
-    <div class="ui huge header">Edit <%= favorite.title %> </div>
-
-        <form class="ui form" action="/favorites/<%= favorite._id %>?_method=PUT" method="POST">
+        <form class="ui form" action="/favorites" method="POST">
 
             <div class="field">
                 <label>Title</label>
-                <input type="text" name="favorite[title]" value="<%= favorite.title %> " readonly>  
+                <input type="text" name="favorite[title]" value="<%= form.title %>" placeholder="<%= form.title %>" readonly>  
             </div>
 
             <div class="field">
                 <label>Category</label>
-                <input type="text" name="favorite[category]" value="<%= favorite.category %>" readonly>
+                <input type="text" name="favorite[category]" value="<%= form.category %>" placeholder="<%= form.category %>" readonly>
             </div>
 
             <div class="field">
                 <label>Link</label>
-                <a href="" target="_blank"> </a><input type="text" name="favorite[link]" value="<%= favorite.link %>" readonly></a>
+                <a href="" target="_blank"> </a><input type="text" name="favorite[link]" value="<%= form.link %>" placeholder="<%= form.link %>" readonly></a>
             </div>
 
             <div class="field">
                 <label>Description</label> 
-                <input type="text" name="favorite[description]" value="<%= favorite.description %>" readonly>  
+                <input type="text" name="favorite[description]" value="<%= form.description %>" placeholder="<%= form.description %>" readonly>  
             </div>
                         
             <div class="field">
                 <label>Comments</label> 
-                <textarea name="favorite[comments]" required><%= favorite.comments %> </textarea>
+                <textarea name="favorite[comments]" required>Enter Comment Here</textarea>
             </div>
 
-            <input class="ui violet basic big button" type="submit" value="Add to Favorites">
+            <input class="ui violet basic button" type="submit" value="Add to Favorites">
 
         </form>
 
     </div> 
-</div> -->
+</div>
 
 <%- include("partials/footer") %>

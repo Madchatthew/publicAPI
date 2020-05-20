@@ -4,10 +4,12 @@
 
    <div class="ui huge header">Search Public APIs</div>
 
-<form action='/results' method="GET">
-    <input type="text" name="search" placeholder="Search API">
-    <input type="submit">
-</form>
+   <div id="searchForm">
+        <form action='/results' method="GET">
+            <input type="text" name="search" placeholder="Search API">
+            <input type="submit">
+        </form>
+    </div>
 
 </div>
 <%- include("partials/footer") %>

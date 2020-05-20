@@ -27,15 +27,12 @@
                         
             <div class="field">
                 <label>Comments</label> 
-                <textarea name="favorite[comments]"><%= favorite.comments %> </textarea>
+                <textarea name="favorite[comments]"><%- favorite.comments %> </textarea>
             </div>
 
-            <input class="ui violet basic big button" type="submit" value="Add to Favorites">
+            <input id="formButton" class="ui violet basic button" type="submit" value="Update Favorite">
+            <a class="ui red basic button" href="/favorites/<%= favorite._id %>">Cancel Upate</a>
 
-        </form>
-
-        <form action="/favorites/<%= favorite._id %>?_method=DELETE" method="POST">
-            <button class="ui red basic button">Delete Favorite</button>
         </form>
 
     </div> 

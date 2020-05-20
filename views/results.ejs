@@ -5,8 +5,8 @@
     <div class="ui huge header">Search Results</div>
 
 <% data['entries'].forEach(function(list) { %>
-    <div class="ui main text container segment">
-        <ul>
+    <div id="resultsContainer" class="ui main text container segment">
+        <ul id="resultsList">
             <li>
                 <form class="ui form" action="/favorites/new" method="POST">
                     <div>
@@ -30,13 +30,8 @@
                             <label>Description</label> 
                             <input type="text" name="favorite[description]" value="<%= list['Description'] %>" placeholder="<%= list['Description'] %>" readonly>  
                         </div>
-                        
-                        <div class="field">
-                            <!-- <label hidden>Comments</label>  -->
-                            <textarea hidden name="favorite[comments]">Enter Comment Here</textarea>
-                        </div>
 
-                        <input class="ui violet basic big button" type="submit" value="Add to Favorites">
+                        <input class="ui violet basic button" type="submit" value="Add to Favorites">
 
                 </form>
             </li>
