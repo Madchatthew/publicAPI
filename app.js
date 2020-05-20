@@ -10,7 +10,6 @@ mongoose.connect('mongodb://localhost/publicAPI', {
     useUnifiedTopology: true
 })
 const db = mongoose.connection
-db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.set('view engine', 'ejs')
@@ -30,17 +29,7 @@ const publicSchema = new mongoose.Schema( {
 const Public = mongoose.model('Public', publicSchema)
 
 app.get('/', function(req, res) {
-    res.render('search')
-})
-
-app.post('/favorites/new', function(req, res) {
-    Public.create(req.body.favorite, function(err, newFavorite) {
-        if(err) {
-            res.render('/results')
-        } else {
-            res.redirect('new')
-        }
-    })
+        res.render('search')
 })
 
 app.get('/results', function(req, res) {
@@ -51,6 +40,16 @@ app.get('/results', function(req, res) {
             let data = JSON.parse(body)
             res.render('results', {data: data})
             // res.send(results['entries'][0]['API'])
+        }
+    })
+})
+
+app.post('/favorites', function(req, res) {
+    Public.create(req.body.favorite, function(err, newFavorite) {
+        if(err) {
+            res.render('new')
+        } else {
+            res.redirect('/favorites')
         }
     })
 })
