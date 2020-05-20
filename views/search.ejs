@@ -1,6 +1,15 @@
-<h1>Search Public APIs</h1>
+<%- include("partials/header") %>
 
-<form action='/results' method="GET">
-    <input type="text" name="search" placeholder="Search API">
-    <input type="submit">
-</form>
+<div class="ui main text container segment">
+
+   <div class="ui huge header">Search Public APIs</div>
+
+   <div id="searchForm">
+        <form action='/results' method="GET">
+            <input type="text" name="search" placeholder="Search API">
+            <input type="submit">
+        </form>
+    </div>
+
+</div>
+<%- include("partials/footer") %>

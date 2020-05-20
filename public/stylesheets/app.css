@@ -1,0 +1,35 @@
+i.icon {
+    font-size: 2em;
+}
+
+.container.main {
+    margin-top: 7em;
+}
+
+#formButton {
+    display: inline;
+}
+
+#date {
+    font-style: italic;
+}
+
+#viewFavorite {
+    margin-top: 2em;
+}
+
+ul#resultsList {
+    list-style-type: none;
+}
+
+#resultsContainer {
+    margin-top: 2em;
+}
+
+#showButtons {
+    margin-top: 2em;
+}
+
+#searchForm {
+    margin-top: 2em;
+}

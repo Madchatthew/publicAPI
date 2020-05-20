@@ -1,0 +1,51 @@
+<%- include("partials/header") %>
+<div class="ui main text container">
+   
+    <div class="ui huge header"><%= favorite.title %></div>
+
+        <div class="ui top attached segment">
+    
+            <div class="ui small header content">
+                Title
+            </div>
+                <p><%= favorite.title %></p>
+
+            <div class="ui small header content">
+                Favorite Added: 
+            </div>
+                <span id="date"><%= favorite.created.toDateString() %></span>
+
+            <div class="ui small header content">
+                Category
+            </div>
+                <P><%= favorite.category %></P>
+
+            <div class="ui small header content">
+                Link:
+            </div>
+                <p><%= favorite.link %></P>
+
+            <div class="ui small header content">
+                Description
+            </div>
+                <p><%= favorite.description %></p>
+
+            <div class="ui small header content">
+                Comment
+            </div>
+                <p><%- favorite.comments %></p>
+
+            <div id="showButtons">
+                <a class="ui orange basic button" href="/favorites/<%= favorite._id %>/edit">Edit Favorite</a>
+        
+                <form id="formButton" action="/favorites/<%= favorite._id %>?_method=DELETE" method="POST">
+                    <button class="ui red basic button">Delete Favorite</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<%- include("partials/footer") %>

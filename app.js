@@ -1,13 +1,42 @@
-const express = require('express')
-const app = express()
-const request = require('request')
+const   bodyParser          = require('body-parser'),
+        methodOverride      = require('method-override'),
+        expressSanitizer    = require('express-sanitizer'),
+        mongoose            = require('mongoose'),
+        express             = require('express'),
+        request             = require('request'),
+        app                 = express()
+
+mongoose.connect('mongodb://localhost/publicAPI', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+const db = mongoose.connection
+db.once('open', () => console.log('Connected to Mongoose'))
 
 app.set('view engine', 'ejs')
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(expressSanitizer())
+app.use(methodOverride('_method'))
 
-app.get('/', function(req, res) {
-    res.render('search')
+// mongodb schema
+const publicSchema = new mongoose.Schema( {
+    title: String,
+    category: String,
+    description: String,
+    link: String,
+    comments: String,
+    created: {type: Date, default: Date.now}
 })
 
+const Public = mongoose.model('Public', publicSchema)
+
+// renders the search page
+app.get('/', function(req, res) {
+        res.render('search')
+})
+
+// shows the results of search
 app.get('/results', function(req, res) {
     let query = req.query.search
     let url = 'https://api.publicapis.org/entries?title=' + query + '&https=true'
@@ -20,6 +49,87 @@ app.get('/results', function(req, res) {
     })
 })
 
-app.listen(3000, function() {
+// render the new page
+app.get('/favorites/new', function(req, res) {
+    res.render('new')
+})
+
+// pulls the form data from results into a new form
+app.post('/favorites/new', function(req, res) {
+        res.render('new', {
+            form: req.body.favorite
+        })
+})
+
+// Create route - inserts data into mongodb
+app.post('/favorites', function(req, res) {
+    req.body.favorite.comments = req.sanitize(req.body.favorite.comments)
+    Public.create(req.body.favorite, function(err, newFavorite) {
+        if(err) {
+            res.render('new')
+        } else {
+            res.redirect('/favorites')
+        }
+    })
+})
+
+// display favorites
+app.get('/favorites', function(req, res) {
+    Public.find({}, function(err, favorites) {
+        if(err) {
+            console.log('ERROR!')
+        } else {
+            res.render('favorites', {favorites: favorites})
+        }
+    })
+})
+
+// edit route
+app.get('/favorites/:id/edit', function(req, res) {
+    Public.findById(req.params.id, function(err, foundFavorite) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.render('edit', {favorite: foundFavorite})
+        }
+    })
+})
+
+// show route
+app.get('/favorites/:id', function(req, res) {
+    Public.findById(req.params.id, function(err, foundFavorite) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.render('show', {favorite: foundFavorite})
+        }
+    })
+})
+
+// update route
+app.put('/favorites/:id', function(req, res) {
+    req.body.favorite.comments = req.sanitize(req.body.favorite.comments)
+    Public.findByIdAndUpdate(req.params.id, req.body.favorite, function(err, updatedFavorite) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.redirect('/favorites/' + req.params.id)
+        }
+    })
+})
+
+// delete route
+app.delete('/favorites/:id', function(req, res) {
+    Public.findByIdAndRemove(req.params.id, function(err) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.redirect('/favorites')
+        }
+    })
+})
+
+// starts the server
+app.listen(3005, function() {
     console.log("Server Started on webdev:3000");
-});
+})
