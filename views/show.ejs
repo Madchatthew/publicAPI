@@ -1,0 +1,37 @@
+<%- include("partials/header") %>
+<div class="ui main text container segment">
+   
+    <div class="ui huge header"><%= favorite.title %></div>
+
+    <div class="ui top attached segment">
+        
+        <div class="item">
+
+            <div class="content">
+                <%= favorite.created.toDateString() %> 
+            </div>
+
+            <div class="content">
+                <%= favorite.category %> 
+            </div>
+
+            <div class="content">
+                <%= favorite.link %> 
+            </div>
+
+            <div class="content description">
+                <%= favorite.description %> 
+            </div>
+
+            <div class="content description">
+                <%- favorite.comments %> 
+            </div>
+
+            <a href="/blogs/<%= blog._id %>/edit" class="ui orange basic button"></a>
+
+        </div>
+    
+    </div>
+</div>
+
+<%- include("partials/footer") %>

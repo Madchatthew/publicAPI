@@ -1,17 +1,49 @@
 <%- include("partials/header") %>
 
-<h1>Here are your results</h1>
+<div class="ui main text container">
+
+    <div class="ui huge header">Search Results</div>
 
 <% data['entries'].forEach(function(list) { %>
-    <div>
+    <div class="ui main text container segment">
         <ul>
             <li>
-                <p><%= list['API'] %> | Category: <%= list['Category'] %></p>
-                <p>Description: <%= list['Description'] %></p> 
-                <p>Link: <a href="<%= list['Link'] %>" target="_blank"><%= list['Link'] %></a> </p>
+                <form class="ui form" action="favorites/new" method="POST">
+                    <div>
+
+                        <div class="field">
+                            <label>Title</label>
+                            <input type="text" name="favorite[title]" value="<%= list['API'] %>" placeholder="<%= list['API'] %>" readonly>  
+                        </div>
+
+                        <div class="field">
+                            <label>Category</label>
+                            <input type="text" name="favorite[category]" value="<%= list['Category'] %>" placeholder="<%= list['Category'] %>" readonly>
+                        </div>
+
+                        <div class="field">
+                            <label>Link</label>
+                            <a href="<%= list['Link'] %>" target="_blank"> </a><input type="text" name="favorite[link]" value="<%= list['Link'] %>" placeholder="<%= list['Link'] %>" readonly></a>
+                        </div>
+
+                        <div class="field">
+                            <label>Description</label> 
+                            <input type="text" name="favorite[description]" value="<%= list['Description'] %>" placeholder="<%= list['Description'] %>" readonly>  
+                        </div>
+                        
+                        <div class="field">
+                            <!-- <label hidden>Comments</label>  -->
+                            <textarea hidden name="blog[comments]">Enter Comment Here</textarea>
+                        </div>
+
+                        <input class="ui violet basic big button" type="submit" value="Add to Favorites">
+
+                </form>
             </li>
         </ul>
+        
     </div> 
+</div>
 <% }) %> 
 
 <%- include("partials/footer") %>

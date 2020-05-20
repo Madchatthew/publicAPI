@@ -1,4 +1,5 @@
 const   bodyParser      = require('body-parser'),
+        methodOverride  = require('method-override'),
         mongoose        = require('mongoose'),
         express         = require('express'),
         request         = require('request'),
@@ -15,6 +16,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(methodOverride('_method'))
 
 const publicSchema = new mongoose.Schema( {
     title: String,
@@ -29,6 +31,16 @@ const Public = mongoose.model('Public', publicSchema)
 
 app.get('/', function(req, res) {
     res.render('search')
+})
+
+app.post('/favorites/new', function(req, res) {
+    Public.create(req.body.favorite, function(err, newFavorite) {
+        if(err) {
+            res.render('/results')
+        } else {
+            res.redirect('new')
+        }
+    })
 })
 
 app.get('/results', function(req, res) {
@@ -49,6 +61,46 @@ app.get('/favorites', function(req, res) {
             console.log('ERROR!')
         } else {
             res.render('favorites', {favorites: favorites})
+        }
+    })
+})
+
+app.get('favorites/:id', function(req, res) {
+    Public.findById(req.params.id, function(err, foundFavorite) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.render('show', {favorite: foundFavorite})
+        }
+    })
+})
+
+app.get('/favorites/:id/edit', function(req, res) {
+    Public.findById(req.params.id, function(err, foundFavorite) {
+        if(error) {
+            res.redirect('/favorites')
+        } else {
+            res.render('edit', {favorite: foundFavorite})
+        }
+    })
+})
+
+app.put('/favorites/:id', function(req, res) {
+    Public.findByIdAndUpdate(req.params.id, req.body.favorite, function(err, updatedFavorite) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.redirect('/favorites/' + req.params.id)
+        }
+    })
+})
+
+app.delete('/favorites/:id', function(req, res) {
+    Public.findByIdAndRemove(req.params.id, function(err) {
+        if(err) {
+            res.redirect('/favorites')
+        } else {
+            res.redirect('/favorites')
         }
     })
 })

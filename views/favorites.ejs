@@ -1,33 +1,41 @@
 <%- include("partials/header") %>
 
-<h1>Favorites</h1>
+<div class="ui main text container segment">
+
+    <div class="ui huge header">Favorites</div>
 
 <% favorites.forEach(function(favorite) { %>
-
-   <div>
+    
+    <div class="ui top attached segment">
+   
+    <div class="content">
        <h2><%= favorite.title %></h2> 
     </div>
 
-    <div>
+    <div class="content">
         <%= favorite.created %> 
     </div>
 
-    <div>
+    <div class="content">
         <%= favorite.category %> 
     </div>
 
-    <div>
+    <div class="content">
         <%= favorite.link %> 
     </div>
 
-    <div>
+    <div class="content">
         <%= favorite.description %> 
     </div>
 
-    <div>
+    <div class="content">
         <%= favorite.comments %> 
     </div>
 
+    <a class="ui orange basic button" href="/favorites/<%= favorite._id %>/edit">Update Favorite</a>
+
+    </div>
 <% }) %>
 
+</div>
 <%- include("partials/footer") %>
