@@ -130,6 +130,6 @@ app.delete('/favorites/:id', function(req, res) {
 })
 
 // starts the server
-app.listen(3005, function() {
-    console.log("Server Started on webdev:3000");
+app.listen(3001, function() {
+    console.log("Server Started");
 })
