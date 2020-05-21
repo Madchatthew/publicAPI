@@ -130,6 +130,6 @@ app.delete('/favorites/:id', function(req, res) {
 })
 
 // starts the server
-app.listen(3001, function() {
+app.listen(3000, function() {
     console.log("Server Started");
 })
