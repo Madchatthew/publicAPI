@@ -4,8 +4,8 @@
   "description": "public api list",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "devStart": "nodemon server.js"
+    "start": "node publicAPI.js",
+    "devStart": "nodemon publicAPI.js"
   },
   "author": "chad jessen",
   "license": "ISC",

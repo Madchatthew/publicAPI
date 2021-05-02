@@ -4,7 +4,7 @@ const   bodyParser          = require('body-parser'),
         mongoose            = require('mongoose'),
         express             = require('express'),
         request             = require('request'),
-        app                 = express()
+        publicAPI                 = express()
 
 mongoose.connect('mongodb://localhost/publicAPI', {
     useNewUrlParser: true,
@@ -13,11 +13,11 @@ mongoose.connect('mongodb://localhost/publicAPI', {
 const db = mongoose.connection
 db.once('open', () => console.log('Connected to Mongoose'))
 
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(expressSanitizer())
-app.use(methodOverride('_method'))
+publicAPI.set('view engine', 'ejs')
+publicAPI.use(bodyParser.urlencoded({extended: true}))
+publicAPI.use(express.static('public'))
+publicAPI.use(expressSanitizer())
+publicAPI.use(methodOverride('_method'))
 
 // mongodb schema
 const publicSchema = new mongoose.Schema( {
@@ -32,12 +32,12 @@ const publicSchema = new mongoose.Schema( {
 const Public = mongoose.model('Public', publicSchema)
 
 // renders the search page
-app.get('/', function(req, res) {
+publicAPI.get('/', function(req, res) {
         res.render('search')
 })
 
 // shows the results of search
-app.get('/results', function(req, res) {
+publicAPI.get('/results', function(req, res) {
     let query = req.query.search
     let url = 'https://api.publicapis.org/entries?title=' + query + '&https=true'
     request(url, function(error, response, body) {
@@ -50,19 +50,19 @@ app.get('/results', function(req, res) {
 })
 
 // render the new page
-app.get('/favorites/new', function(req, res) {
+publicAPI.get('/favorites/new', function(req, res) {
     res.render('new')
 })
 
 // pulls the form data from results into a new form
-app.post('/favorites/new', function(req, res) {
+publicAPI.post('/favorites/new', function(req, res) {
         res.render('new', {
             form: req.body.favorite
         })
 })
 
 // Create route - inserts data into mongodb
-app.post('/favorites', function(req, res) {
+publicAPI.post('/favorites', function(req, res) {
     req.body.favorite.comments = req.sanitize(req.body.favorite.comments)
     Public.create(req.body.favorite, function(err, newFavorite) {
         if(err) {
@@ -74,7 +74,7 @@ app.post('/favorites', function(req, res) {
 })
 
 // display favorites
-app.get('/favorites', function(req, res) {
+publicAPI.get('/favorites', function(req, res) {
     Public.find({}, function(err, favorites) {
         if(err) {
             console.log('ERROR!')
@@ -85,7 +85,7 @@ app.get('/favorites', function(req, res) {
 })
 
 // edit route
-app.get('/favorites/:id/edit', function(req, res) {
+publicAPI.get('/favorites/:id/edit', function(req, res) {
     Public.findById(req.params.id, function(err, foundFavorite) {
         if(err) {
             res.redirect('/favorites')
@@ -96,7 +96,7 @@ app.get('/favorites/:id/edit', function(req, res) {
 })
 
 // show route
-app.get('/favorites/:id', function(req, res) {
+publicAPI.get('/favorites/:id', function(req, res) {
     Public.findById(req.params.id, function(err, foundFavorite) {
         if(err) {
             res.redirect('/favorites')
@@ -107,7 +107,7 @@ app.get('/favorites/:id', function(req, res) {
 })
 
 // update route
-app.put('/favorites/:id', function(req, res) {
+publicAPI.put('/favorites/:id', function(req, res) {
     req.body.favorite.comments = req.sanitize(req.body.favorite.comments)
     Public.findByIdAndUpdate(req.params.id, req.body.favorite, function(err, updatedFavorite) {
         if(err) {
@@ -119,7 +119,7 @@ app.put('/favorites/:id', function(req, res) {
 })
 
 // delete route
-app.delete('/favorites/:id', function(req, res) {
+publicAPI.delete('/favorites/:id', function(req, res) {
     Public.findByIdAndRemove(req.params.id, function(err) {
         if(err) {
             res.redirect('/favorites')
@@ -130,6 +130,6 @@ app.delete('/favorites/:id', function(req, res) {
 })
 
 // starts the server
-app.listen(3000, function() {
+publicAPI.listen(3000, function() {
     console.log("Server Started");
 })
