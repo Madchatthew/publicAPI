@@ -4,7 +4,7 @@ const   bodyParser          = require('body-parser'),
         mongoose            = require('mongoose'),
         express             = require('express'),
         request             = require('request'),
-        publicAPI                 = express()
+        publicAPI           = express()
 
 mongoose.connect('mongodb://localhost/publicAPI', {
     useNewUrlParser: true,
