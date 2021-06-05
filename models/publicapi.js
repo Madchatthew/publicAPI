@@ -8,6 +8,6 @@ const publicSchema = new mongoose.Schema( {
     link: String,
     comments: String,
     created: {type: Date, default: Date.now}
-});
+})
 
 module.exports = mongoose.model('Public', publicSchema);

@@ -1,0 +1,37 @@
+<div class="ui main text container segment">
+    <div class="ui huge header">Edit <%= favorite.title %> </div>
+
+        <form class="ui form" action="/favorites/<%= favorite._id %>?_method=PUT" method="POST">
+
+            <div class="field">
+                <label>Title</label>
+                <input type="text" name="favorite[title]" value="<%= favorite.title %> " readonly>  
+            </div>
+
+            <div class="field">
+                <label>Category</label>
+                <input type="text" name="favorite[category]" value="<%= favorite.category %>" readonly>
+            </div>
+
+            <div class="field">
+                <label>Link</label>
+                <a href="" target="_blank"> </a><input type="text" name="favorite[link]" value="<%= favorite.link %>" readonly></a>
+            </div>
+
+            <div class="field">
+                <label>Description</label> 
+                <input type="text" name="favorite[description]" value="<%= favorite.description %>" readonly>  
+            </div>
+                        
+            <div class="field">
+                <label>Comments</label> 
+                <textarea name="favorite[comments]"><%- favorite.comments %> </textarea>
+            </div>
+
+            <input id="formButton" class="ui violet basic button" type="submit" value="Update Favorite">
+            <a class="ui red basic button" href="/favorites/<%= favorite._id %>">Cancel Upate</a>
+
+        </form>
+
+    </div> 
+</div>
