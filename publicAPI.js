@@ -25,7 +25,9 @@ const favoritesRouter = require('./routes/favorites');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
 });
 const db = mongoose.connection
 db.on('error', (error) => console.error(error));
