@@ -1,6 +1,5 @@
 const express = require('express');
 const got = require('got');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const router = express.Router();
 const Public = require('../models/publicapi');
