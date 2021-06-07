@@ -1,5 +1,9 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 // Applications setup to use for app
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 const methodOverride = require('method-override');
 const expressSanitizer = require('express-sanitizer');
 const mongoose = require('mongoose');
@@ -10,7 +14,7 @@ const publicAPI = express();
 
 // Application use and setup section
 publicAPI.use(express.json());
-publicAPI.use(express.urlencoded());
+publicAPI.use(express.urlencoded({ extended: true }));
 publicAPI.set('view engine', 'ejs');
 publicAPI.set('views', __dirname + '/views');
 publicAPI.set('layout', 'layouts/layout');
