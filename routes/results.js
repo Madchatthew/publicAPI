@@ -10,12 +10,12 @@ router.get('/', async (req, res) => {
             const response = await got(url);
             let data = JSON.parse(response.body);
             if (data['entries'] === null) {
-                res.redirect('/');
+                throw 'No results found. Please use another search term.';
             } else {
                 res.render('results/index', {data});
             }
         } catch (error) {
-            res.json({ message: error.message });
+            res.send(error);
         }
 })
 
