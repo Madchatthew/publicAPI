@@ -46,4 +46,3 @@ publicAPI.use('/favorites', favoritesRouter);
 
 // starts the server
 publicAPI.listen(process.env.PORT);
-})
