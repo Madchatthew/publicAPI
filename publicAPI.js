@@ -45,6 +45,5 @@ publicAPI.use('/results', resultsRouter);
 publicAPI.use('/favorites', favoritesRouter);
 
 // starts the server
-publicAPI.listen(process.env.PORT || 3000, () => {
-    console.log("Server Started");
+publicAPI.listen(process.env.PORT);
 })
