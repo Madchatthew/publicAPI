@@ -45,4 +45,4 @@ publicAPI.use('/results', resultsRouter);
 publicAPI.use('/favorites', favoritesRouter);
 
 // starts the server
-publicAPI.listen(process.env.PORT);
+publicAPI.listen(process.env.PORT_PUBLICAPI);
