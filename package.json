@@ -14,13 +14,13 @@
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-sanitizer": "^1.0.6",
-    "got": "^11.8.2",
+    "got": "^12.5.3",
     "method-override": "^3.0.0",
     "mongoose": "^5.12.13"
   },
   "devDependencies": {
     "dotenv": "10.0.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.20"
   },
   "repository": {
     "type": "git",
